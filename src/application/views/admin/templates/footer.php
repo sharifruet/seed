@@ -1,0 +1,1 @@
+<div style="clear:both;color:#000; padding:20px;" class="text-center">		<strong>&copy; <?php echo date('Y').", Seed - eComm"; ?></strong><br/>	Maintained by <a href="http://www.probortonapps.com" target="_blank"><font color="#FF0000"> ProbortonApps</font></a></div>

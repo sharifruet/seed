@@ -1,0 +1,8 @@
+task copyFiles{
+		copy{
+			from ('src/'){
+				exclude '*.txt'
+			}
+			into 'c:/xampp/htdocs/seed'
+		}
+}
