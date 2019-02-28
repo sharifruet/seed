@@ -1,22 +1,1 @@
-<div class="container" style="min-height: 400px;"><?php if($summery){?>	<div class="row">		<div class="col-lg-4 col-sm-12 col-md-6 text-center">			<div style="border: 1px solid blue;color:blue;">				<h2>Cash</h2><hr/>				<h3><?php echo Applicationconst::convertWord($cashToday);?> <small> [Today] </small></h3>				<h3><?php echo Applicationconst::convertWord($cash);?> <small> [All] </small></h3>							</div>		</div>		<div class="col-lg-4 col-sm-12 col-md-6 text-center">			<div style="border: 1px solid red;color:red;">				<h2>Expense</h2><hr/>				<h3><?php echo Applicationconst::convertWord($expenseToday);?> <small> [Today] </small></h3>				<h3><?php echo Applicationconst::convertWord($expense);?> <small> [All] </small></h3>							</div>		</div>				<div class="col-lg-4 col-sm-12 col-md-6 text-center">			<div style="border: 1px solid green;color: green;">				<h2>Income</h2><hr/>				<h3><?php echo Applicationconst::convertWord($revenueToday);?> <small> [Today] </small></h3>				<h3><?php echo Applicationconst::convertWord($revenue);?> <small> [All] </small></h3>							</div>		</div> 	</div>		<br/>	<br/><br/><hr/><?php } if($links){?>
-    <div class="row">
-    <?php
-    foreach ( $menu as $k => $m ) :
-    ?>
-    	<div class="col-lg-2 col-md-4 col-sm-6">
-    		<b><?php echo $k;?></b>
-    			<?php 
-    			foreach ($m as $r):
-    				if($r->isMenu == 1){?>
-    			<div class="row">	
-    				<div class="col-md-12">	
-    					<a href="<?php echo base_url();?>index.php/<?php echo $r->actionUrl;?>">
-    						<i class="icon-lock"></i><span><?php echo $r->displayName;?></span>
-    					</a>
-    				</div> 
-    			</div>
-    			<?php }
-    			endforeach;?>
-    	</div>
-    <?php endforeach;?>
-    </div>        <?php }?></div>
+<!-- Icon Cards-->        <div class="row">          <div class="col-xl-3 col-sm-6 mb-3">            <div class="card text-white bg-primary o-hidden h-100">              <div class="card-body">                <div class="card-body-icon">                  <i class="fas fa-fw fa-comments"></i>                </div>                <div class="mr-5">26 New Messages!</div>              </div>              <a class="card-footer text-white clearfix small z-1" href="#">                <span class="float-left">View Details</span>                <span class="float-right">                  <i class="fas fa-angle-right"></i>                </span>              </a>            </div>          </div>          <div class="col-xl-3 col-sm-6 mb-3">            <div class="card text-white bg-warning o-hidden h-100">              <div class="card-body">                <div class="card-body-icon">                  <i class="fas fa-fw fa-list"></i>                </div>                <div class="mr-5">11 New Tasks!</div>              </div>              <a class="card-footer text-white clearfix small z-1" href="#">                <span class="float-left">View Details</span>                <span class="float-right">                  <i class="fas fa-angle-right"></i>                </span>              </a>            </div>          </div>          <div class="col-xl-3 col-sm-6 mb-3">            <div class="card text-white bg-success o-hidden h-100">              <div class="card-body">                <div class="card-body-icon">                  <i class="fas fa-fw fa-shopping-cart"></i>                </div>                <div class="mr-5">123 New Orders!</div>              </div>              <a class="card-footer text-white clearfix small z-1" href="#">                <span class="float-left">View Details</span>                <span class="float-right">                  <i class="fas fa-angle-right"></i>                </span>              </a>            </div>          </div>          <div class="col-xl-3 col-sm-6 mb-3">            <div class="card text-white bg-danger o-hidden h-100">              <div class="card-body">                <div class="card-body-icon">                  <i class="fas fa-fw fa-life-ring"></i>                </div>                <div class="mr-5">13 New Tickets!</div>              </div>              <a class="card-footer text-white clearfix small z-1" href="#">                <span class="float-left">View Details</span>                <span class="float-right">                  <i class="fas fa-angle-right"></i>                </span>              </a>            </div>          </div>        </div>
