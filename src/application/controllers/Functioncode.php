@@ -6,36 +6,31 @@ if (! defined('BASEPATH'))
  * @author : Sharif Uddin
  * date : April 01, 2016
  */
-class Functioncode extends MY_Controller
-{
+class Functioncode extends MY_Controller {
 
-    function __construct()
-    {
+    function __construct(){
         parent::__construct();
-        $this->load->model('functioncodesmodel');
-       
+        $this->component = 'functioncode';
+        $this->load->model('functioncodemodel');
+        $this->model = $this->model;
     }
 
     /**
      * *default functin, redirects to login page if no admin logged in yet**
      */
-    public function index()
-    {
-        redirect(base_url() . 'index.php/functioncode/search', 'refresh');
+    public function index(){
+    	redirect(base_url($this->component.'/search'), 'refresh');
     }
 
-    public function commonTasks()
-    {
+    public function commonTasks(){
         $data = parent::commonTasks();
         
-        $data['component'] = 'functioncode';
+        $data['component'] = $this->component;
         
         return $data;
     }
 
-    public function search()
-    
-    {
+    public function search() {
         $data = $this->commonTasks();
         
         $data = $this->commonSearch($data);
@@ -48,7 +43,7 @@ class Functioncode extends MY_Controller
         
         $data['page_name'] = 'home';
         
-        $data['searchAction'] = base_url() . 'index.php/functioncode/search';
+        $data['searchAction'] = base_url($this->component.'/search');
         
         $data['searchDisplayTxt'] = 'searchDisplayTxt';
         
@@ -72,255 +67,54 @@ class Functioncode extends MY_Controller
             'isMenu' => 'Menu'
         ];
         
-        $data['addmodifyAction'] = 'index.php/functioncode/add';
+        $data['addmodifyAction'] = $this->component.'/add';
         
         // Capitalize the first letter
         
-        $this->load->view('functioncode/search/index.php', $data);
+        $this->load->view($this->userType . '/'.$this->component.'/search/index.php', $data);
     }
 
-    public function add($id = 0)
+    public function add($id = 0) {
+    	$data = $this->commonTasks();
+    	if ($id > 0)
+    		$data['page_title'] = 'Modify '.$this->component;
+    		else
+    			$data['page_title'] = 'Add '.$this->component;
+    			
+    			$data['page_name'] = $this->component;
+    			
+    			$rsObj = $this->model->getById($id);
+    			$data['inputs'] = $this->model->getUiObject($rsObj);
+    			
+    			$this->load->view($this->userType . '/'.$this->component.'/add/index', $data);
+    }
     
-    {
-        $data = $this->commonTasks();
-        
-        if ($id > 0)
-            
-            $data['page_title'] = 'Modify FunctionCode';
-        
-        else
-            
-            $data['page_title'] = 'Add FunctionCode';
-        
-        $data['page_name'] = 'home';
-        
-        $version = 0;
-        
-        $name = '';
-        
-        $displayName = '';
-        
-        $functionGroup = '';
-        
-        $actionUrl = '';
-        
-        $isMenu = 0;
-        
-        $status = 1;
-        
-        if ($id > 0) {
-            
-            $query = $this->db->query("SELECT componentId, uniqueCode, displayName, functionGroup,actionUrl, isMenu, version, status FROM functioncode WHERE componentId = $id ");
-            
-            foreach ($query->result() as $row) 
-            {
-                
-                $id = $row->componentId;
-                
-                $version = $row->version;
-                
-                $name = $row->uniqueCode;
-                
-                $displayName = $row->displayName;
-                
-                $functionGroup = $row->functionGroup;
-                
-                $isMenu = $row->isMenu;
-                
-                $actionUrl = $row->actionUrl;
-                
-                $status = $row->status;
-            }
-        }
-        
-        $data['inputs'] = [
-            
-            '0' => [
-                'type' => 'hidden',
-                'fielddata' => [
-                    'name' => 'id',
-                    'id' => 'id',
-                    'value' => $id
-                ]
-            ],
-            
-            '1' => [
-                'type' => 'hidden',
-                'fielddata' => [
-                    'name' => 'version',
-                    'id' => 'version',
-                    'value' => $version
-                ]
-            ],
-            
-            '2' => [
-                'type' => 'hidden',
-                'fielddata' => [
-                    'name' => 'status',
-                    'id' => 'status',
-                    'value' => $status
-                ]
-            ],
-            
-            '3' => [
-                'type' => 'textfield',
-                'fielddata' => [
-                    'name' => 'displayName',
-                    'id' => 'displayName',
-                    'value' => $displayName
-                ]
-            ],
-            
-            '4' => [
-                'type' => 'textfield',
-                'fielddata' => [
-                    'name' => 'name',
-                    'id' => 'name',
-                    'value' => $name
-                ]
-            ],
-            
-            '5' => [
-                'type' => 'textfield',
-                'fielddata' => [
-                    'name' => 'functionGroup',
-                    'id' => 'functionGroup',
-                    'value' => $functionGroup
-                ]
-            ],
-            
-            '6' => [
-                'type' => 'textfield',
-                'fielddata' => [
-                    'name' => 'actionUrl',
-                    'id' => 'actionUrl',
-                    'value' => $actionUrl
-                ]
-            ],
-            
-            '7' => [
-                'type' => 'textfield',
-                'fielddata' => [
-                    'name' => 'isMenu',
-                    'id' => 'isMenu',
-                    'value' => $isMenu
-                ]
-            ]
-        
-        ];
-        
-        $this->load->view('functioncode/add/index', $data);
-    }
-
     public function save($id = 0)
     
     {
-        $data = $this->commonTasks();
-        
-        $data['page_title'] = 'Add Functioncode';
-        
-        $data['page_name'] = 'home';
-        
-        $data['id'] = $this->input->post('id');
-        
-        $dataToSave['version'] = $this->input->post('version');
-        
-        $dataToSave['uniqueCode'] = $this->input->post('name');
-        
-        $dataToSave['displayName'] = $this->input->post('displayName');
-        
-        $dataToSave['functionGroup'] = $this->input->post('functionGroup');
-        
-        $dataToSave['actionUrl'] = $this->input->post('actionUrl');
-        
-        $dataToSave['isMenu'] = intval($this->input->post('isMenu'));
-        
-        $data['fail_message'] = array();
-        
-        if ($this->input->post('name') == null) {
-            
-            array_push($data['fail_message'], 'name can not be null');
-        }
-        
-        // uniqueCode, displayName, functionGroup,actionUrl, isMenu, version, status
-        
-        if (count($data['fail_message'])) {
-            
-            $data['version'] = $this->input->post('version');
-            
-            $data['name'] = $this->input->post('name');
-            
-            $data['displayName'] = $this->input->post('displayName');
-            
-            $data['functionGroup'] = $this->input->post('functionGroup');
-            
-            $data['actionUrl'] = $this->input->post('actionUrl');
-            
-            $data['isMenu'] = intval($this->input->post('isMenu'));
-            
-            $this->load->view('functioncode/add/index', $data);
-            
-            return;
-        }
-        
-        $sql = "SELECT MAX(codeNumber) + 1 AS codenumber FROM functioncode";
-        
-        $query = $this->db->query($sql);
-        
-        $codeNumber = 0;
-        
-        foreach ($query->result() as $row) 
-        {
-            
-            $codeNumber = $row->codenumber;
-        }
-        
-        if ($data['id'] > 0) {
-            
-            $this->db->where('componentId', $data['id']);
-            
-            $this->db->update('functioncode', $dataToSave);
-        } else {
-            
-            $dataToSave['codeNumber'] = $codeNumber;
-            
-            $this->db->insert('functioncode', $dataToSave);
-        }
-        
-        redirect(base_url() . 'index.php/functioncode/search', 'refresh');
+    	$data = $this->commonTasks();
+    	
+    	$data['page_title'] = 'Add '.$this->component;
+    	
+    	$data['page_name'] = 'home';
+    	
+    	$this->model->save1();
+    	
+    	redirect(base_url() .$this->component.'/search', 'refresh');
     }
-
-    public function delete()
     
-    {
-        $data = $this->commonTasks();
-        
-        $data['page_title'] = 'Delete function code';
-        
-        $data['page_name'] = 'home';
-        
-        $data['id'] = $this->input->post('id');
-        
-        $data['version'] = $this->input->post('version');
-        
-        $data['name'] = $this->input->post('name');
-        
-        $data['displayName'] = $this->input->post('displayName');
-        
-        $data['functionGroup'] = $this->input->post('functionGroup');
-        
-        $data['actionUrl'] = $this->input->post('actionUrl');
-        
-        $data['isMenu'] = $this->input->post('isMenu');
-        
-       
-        if ($this->functioncodesmodel->delete($data['id'])) {
-            
-            redirect(base_url() . 'index.php/functioncode/search', 'refresh');
-        } else {
-            
-            $this->load->view('item/functioncode/index', $data);
-        }
+    public function delete(){
+    	$data = $this->commonTasks();
+    	$data['page_title'] = 'Delete '.ucfirst($this->component);
+    	$data['page_name'] = $this->component;;
+    	
+    	if ($this->model->delete1()) {
+    		redirect(base_url($this->component.'/search'), 'refresh');
+    	} else {
+    		$rsObj = $this->model->getById($id);
+    		$data['inputs'] = $this->model->getUiObject($rsObj);
+    		$this->load->view($this->userType . '/' . $this->component . '/add/index', $data);
+    	}
     }
 
     public function assignment()
@@ -375,6 +169,6 @@ class Functioncode extends MY_Controller
         //echo $sql;
         $data['searchData'] = $query->result();
         
-        $this->load->view('functioncode/functionassign/index', $data);
+        $this->load->view($this->userType . '/' . $this->component . '/functionassign/index', $data);
     }
 }

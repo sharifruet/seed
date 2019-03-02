@@ -33,17 +33,13 @@ echo form_open($component . '/save');
     $hdnCnt = 0;
     
     foreach ($inputs as $inp) :
-        
         if ($inp['type'] == 'hidden') {
             
             $hdnCnt ++;
             ?>			<input type="hidden" name="<?php echo $inp['fielddata']['name'];?>" id="<?php echo $inp['fielddata']['id'];?>" value="<?php echo $inp['fielddata']['value'];?>"/>			<?php 
-            //echo form_hidden($inp['fielddata']['name'], $inp['fielddata']['value']);			//echo form_hidden($inp['fielddata']);
         }
-    endforeach
-    ;
+    endforeach;
     ?>
-					<?php //$this->load->view('templates/buttonbar.php');?>
 					<br />					<div class="container">
 						<?php
     $cnt = 0;
@@ -67,7 +63,7 @@ if ($inp['type'] != 'hidden') {
                // $inp['fielddata']['class'] = "form-control";
                 
                 echo form_input($inp['fielddata']);
-            } 
+            }elseif ($inp['type'] == 'password') {            	            	// $inp['fielddata']['class'] = "form-control";            	            	echo form_password($inp['fielddata']);            }
             elseif ($inp['type'] == 'dropdown') {
                 
                 echo form_dropdown($inp['fielddata']['name'], $inp['fielddata']['options'], $inp['fielddata']['value'], 'class = "form-control"');
@@ -75,24 +71,18 @@ if ($inp['type'] != 'hidden') {
             else
                 
                 echo 'Type<>field map does not exist for type ' . $inp['type'];
-            
-            ?>
-									</div>
-								<?php if($cnt%3 == 2 || $cnt == count($inputs) - 1 - $hdnCnt ){?>
-									</div>
+         
+            ?>
+									</div>
+								<?php if($cnt%3 == 2 || $cnt == count($inputs) - 1 - $hdnCnt ){?>
+									</div>
 								<?php
-            
 }
-            
             $cnt ++;
-            
-            ?>
-						<?php }?>
-					<?php endforeach;?>
-
-
-					<?php $this->load->view('templates/buttonbar.php');?>
-					</div>
-
-			<?php echo form_close();?>
-						<br />					<hr />				</div>			</div>			<!----CREATION FORM ENDS--->		</div>	</div></div>
+            ?>
+						<?php }?>
+					<?php endforeach;?>					<br/>
+					<?php $this->load->view('admin/templates/buttonbar.php');?>
+					</div>
+			<?php echo form_close();?>
+						<br />					<hr />				</div>			</div>			<!----CREATION FORM ENDS--->		</div>	</div></div>

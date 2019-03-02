@@ -1,3 +1,3 @@
-<?php $this->load->view('templates/head.php');?>
-<?php $this->load->view('user/add/addform.php');?> 
-<?php $this->load->view('templates/foot.php');?>
+<?php $this->load->view('admin/templates/head.php');?>
+<?php $this->load->view('admin/common/addform.php');?> 
+<?php $this->load->view('admin/templates/foot.php');?>

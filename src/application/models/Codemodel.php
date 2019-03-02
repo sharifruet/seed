@@ -1,7 +1,44 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');/** * This  is data access class for Codes component *  * @author Sharif Uddin * @since October 21, 2017 * */
-class Codemodel extends MY_Model {        const OFFICE_ADDRESS = 'head_office_address';    const OFFICE_PHONE = 'head_office_phone';    const SYSTEM_NAME = 'system_name';    const SYSTEM_TITLE = 'system_title';    
-    function __construct(){
-        parent::__construct();
-    }        public function getTableName(){ return 'codes'; }        public function getCodesByType($type){    	$rs = $this->getByFilter(['type'=>$type]);    	$ret = [];    	foreach ($rs as $row){    		$ret[$row->uniqueCode] = $row->value;    	}    	    	return $ret;    }
+class Codemodel extends MY_Model {
+	var $type = '' ;
+	var $value = '' ;
+	
+	function __construct()  {
+		parent::__construct();
+	}
+	
+	public function getTableName(){ return 'codes'; }
+	
+	protected function fetchFromInput(){
+		parent::fetchFromInput();
+		
+		$this->type = $this->input->post('type');
+		$this->value = $this->input->post('value');
+	}
+	
+	public function setResultSetObject($rs){
+		if($rs == null)
+			return;
+			parent::setResultSetObject($rs);
+			$this->value = $rs->value;
+			$this->type = $rs->type;
+	}
+	
+	public function getUiObject($rs){
+		$input = parent::getUiObject($rs);
+		
+		$inp =  [
+				'3' =>['type'=>'textfield', 'label' => 'Code',	'fielddata'=>['name' => 'uniqueCode', 'class'=>'form-control',	'id' => 'uniqueCode', 	'value' => $this->uniqueCode,]],
+				'4' =>['type'=>'textfield', 'label' => 'Type',	'fielddata'=>['name' => 'type', 	'class'=>'form-control',	'id' => 'type', 		'value' => $this->type,]],
+				'5' =>['type'=>'textfield', 'label' => 'Value',	'fielddata'=>['name' => 'value', 'class'=>'form-control',	'id' => 'value',	'value' => $this->value,]],
+				
+		];
+		
+		foreach ($inp as $key => $value) {
+			$input[$key] = $value;
+		}
+		
+		return $input;
+	}
 }
 ?>

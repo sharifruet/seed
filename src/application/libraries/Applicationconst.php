@@ -48,7 +48,7 @@ class Applicationconst {
     const OPERATION_DELETE = 'delete';
     const OPERATION_GET = 'get';
     const OPERATION_GET_ALL = 'getAll';
-    const OPERATION_GET_BY_FILTER = 'getByFilter';    const OPERATION_CUSTOM = 'custom';    const MONTHS = [1=>'January', 2=>'February', 3=>'March', 4=>'April', 5=>'May', 6=>'June', 7=>'July', 8=>'August', 9=>'September', 10=>'October', 11=>'November', 12=>'December'];    public static function getYears(){        $years = [];        for($y = 2017; $y<=date('Y')+3;$y++){            $years[$y] = $y;        }        return $years;    }    
+    const OPERATION_GET_BY_FILTER = 'getByFilter';    const OPERATION_CUSTOM = 'custom';    const MONTHS = [1=>'January', 2=>'February', 3=>'March', 4=>'April', 5=>'May', 6=>'June', 7=>'July', 8=>'August', 9=>'September', 10=>'October', 11=>'November', 12=>'December'];        const SESSION_SYSTEM_NAME = 'system_name';    const SESSION_SYSTEM_TITLE = 'system_title';    const SESSION_USER_TYPE = "userType";    const SESSION_USER_ID = "userId";    const SESSION_USERNAME = "username";    const SESSION_USER_DISPLAY_NAME = "userDisplayName";    const SESSION_MENU = "menu";    const SESSION_FUNCTIONS = "functions";        public static function getYears(){        $years = [];        for($y = 2017; $y<=date('Y')+3;$y++){            $years[$y] = $y;        }        return $years;    }    
     
     public static function checkAndConv($inp){
     	if (is_numeric($inp)){

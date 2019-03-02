@@ -52,7 +52,7 @@ class Home extends MY_Controller{
         }
         
         
-        $this->load->view('admin/home/dashboard/index', $data);
+        $this->load->view($this->userType.'/home/dashboard/index', $data);
     }
 
     public function accessdenied()
