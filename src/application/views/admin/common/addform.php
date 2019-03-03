@@ -63,9 +63,7 @@ if ($inp['type'] != 'hidden') {
                // $inp['fielddata']['class'] = "form-control";
                 
                 echo form_input($inp['fielddata']);
-            }elseif ($inp['type'] == 'password') {            	            	// $inp['fielddata']['class'] = "form-control";            	            	echo form_password($inp['fielddata']);            }
-            elseif ($inp['type'] == 'dropdown') {
-                
+            }elseif ($inp['type'] == 'password') {            	echo form_password($inp['fielddata']);            }elseif ($inp['type'] == 'checkbox') {            	echo form_checkbox($inp['fielddata']);            }elseif ($inp['type'] == 'dropdown') {
                 echo form_dropdown($inp['fielddata']['name'], $inp['fielddata']['options'], $inp['fielddata']['value'], 'class = "form-control"');
             }elseif ($inp['type'] == 'textarea') {                                echo form_textarea($inp['fielddata']);            }
             else

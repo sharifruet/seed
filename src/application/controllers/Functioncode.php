@@ -12,7 +12,7 @@ class Functioncode extends MY_Controller {
         parent::__construct();
         $this->component = 'functioncode';
         $this->load->model('functioncodemodel');
-        $this->model = $this->model;
+        $this->model = $this->functioncodemodel;
     }
 
     /**

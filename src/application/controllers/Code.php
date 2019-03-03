@@ -14,7 +14,7 @@ if (! defined('BASEPATH'))
            parent::__construct();
            $this->component = 'code';
            $this->load->model('codemodel');   
-           $this->model = $this->model;
+           $this->model = $this->codemodel;
         }
         
         /**

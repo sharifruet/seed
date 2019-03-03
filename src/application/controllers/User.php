@@ -119,7 +119,7 @@ class User extends MY_Controller
             'firstName' => 'First Name',
             'lastName' => 'lastName',
             'uniqueCode' => 'Username',
-            'contact' => 'Phone',
+            'contactNo' => 'Phone',
             'email' => 'Email',
             'type' => 'Type'
         ];
