@@ -8,16 +8,16 @@ if (! defined('BASEPATH'))
 	 * @author : Sharif Uddin
 	 * date : April 01, 2016
 	 */
-	class User extends MY_Controller
+	class Event extends MY_Controller
 	{
 		
 		function __construct()
 		{
 			parent::__construct();
 			
-			$this->load->model('usermodel');
-			$this->model = $this->usermodel;
-			$this->component = 'user';
+			$this->load->model('eventmodel');
+			$this->model = $this->eventmodel;
+			$this->component = 'event';
 		}
 		
 		/**
@@ -100,7 +100,7 @@ if (! defined('BASEPATH'))
 							
 							$data['searchAction'] = base_url($this->component . '/search');
 							
-							$searchSQL = "SELECT * FROM user WHERE uniqueCode LIKE '%" . $uniqueCode . "%' ";
+							$searchSQL = "SELECT * FROM event WHERE uniqueCode LIKE '%" . $uniqueCode . "%' ";
 							if ($name != '')
 								$searchSQL .= " AND (firstName LIKE '%" . $name . "%' OR lastName LIKE '%" . $name . "%' )";
 								
@@ -116,12 +116,13 @@ if (! defined('BASEPATH'))
 										$query1 = $this->db->query($searchSQL . $pageSQL);
 										$data['searchData'] = $query1->result();
 										$data['propertyArr'] = [
-												'firstName' => 'First Name',
-												'lastName' => 'Last Name',
-												'uniqueCode' => 'Username',
-												'contactNo' => 'Phone',
-												'email' => 'Email',
-												'type' => 'Type'
+												'date' => 'Date',
+												'title' => 'Title',
+												'description' => 'Description',
+												'locationAddr1' => 'Address 1',
+												'locationAddr2' => 'Address 2',
+												'city' => 'City',
+												'zip' => 'ZIP'
 										];
 										$data['addmodifyAction'] = $this->component . '/add';
 										$this->load->view($this->userType . '/' . $this->component . '/search/index.php', $data);
@@ -169,3 +170,8 @@ if (! defined('BASEPATH'))
 			}
 		}
 	}
+	
+	
+	
+
+

@@ -86,7 +86,7 @@ if ($inp['type'] != 'hidden') {
 					<?php endforeach;?>
 
 
-					<?php $this->load->view('templates/buttonbar.php');?>
+					<?php $this->load->view('customer/templates/buttonbar.php');?>
 					</div>
 
 			<?php echo form_close();?>
